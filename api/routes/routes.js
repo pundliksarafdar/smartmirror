@@ -1,23 +1,23 @@
 'use strict';
 module.exports = function(app) {
-	let data = {"weather":false,"shares":false};
+	let data = {"weather":false,"news":false};
 	app.route("/weather/:status").get((req, res)=>{
 		data.weather = req.params.status;		
 		res.end(getData());
 	});
-	
-	app.route("/shares/:status").get((req, res)=>{
-		data.shares = req.params.status;		
+	 
+	app.route("/news/:status").get((req, res)=>{
+		data.news = req.params.status;		
 		res.end(getData());
 	});
 	
-	app.route("/").get((req, res)=>{
+	app.route("/status").get((req, res)=>{
 		res.end(getData());
 	});
 	
 	function getData(){
 		return JSON.stringify(data);
 	}
-	
+	 
 	
 }

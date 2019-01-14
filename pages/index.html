@@ -1,13 +1,38 @@
 <html>
 <head>
-	<script src="jquery-3.3.1.min.js"/>
-	<script type="text/javascript">
-	$(function(){
-		console.log( "ready!" );
-	});
-	</script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" >
+<style>
+	body{
+		background:black;
+		color:white;
+	}
+</style>
+	<script src="jquery-3.3.1.min.js"></script>
+	<script src="index.js">	</script>
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="https://code.highcharts.com/highcharts-more.js"></script>
 </head>
 <body>
 	<H2>Welcome to smart mirror</H2>
-</body>
+	<div id="weatherDiv"><h3>Temperature</h3>
+		Current<div id="weather-temp" style="width:18rem"></div>	
+		<div style="width: 18rem;">	
+			<div id="weather-temp-min" style="width:50%;float:left;"><h3>17</h3></div>
+			<div id="weather-temp-max"  style="width:50%;float:left;"><h3>18</h3></div>
+		</div>
+	</div>
+	<br/>
+	<div id="newsDiv" style="width:18rem">
+		<h3>News</h3>
+		<h5>Powered by NewsAPI.org</h5>
+		<div id="news-feed"></div>		
+	</div>
+	
+	
+		<div class="card" style="width:18rem;margin:10px;" id="news-feed-tmpl" style="display:none;">
+		  <div class="card-body">
+			<h6 class="card-subtitle mb-2 text-muted" id="headline">Card subtitle</h6>
+		</div>
+	
+</body>    
 </html>
