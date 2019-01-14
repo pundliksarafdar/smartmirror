@@ -3,11 +3,6 @@ var NEWAPI_KEY = "c0931a52d18146d5a693273877eea231";
 
 $(document).ready(function(){
 	initChart();
-	//setInterval(temperatureStatus,3000);
-	//setInterval(showNews,3000);
-	//temperatureStatus();
-	//showNews();
-	//getStatus();
 	setInterval(getStatus,3000)
 });
 
@@ -16,8 +11,8 @@ function getStatus(){
 		url:"/status",
 		success:function(data){
 			data = JSON.parse(data);
-			data.weather?temperatureStatus():hideTemperature();
-			data.news?showNews():hideNews();
+			data.weather == true?temperatureStatus():hideTemperature();
+			data.news == true?showNews():hideNews();
 		}
 	});
 }
@@ -57,8 +52,8 @@ function temperatureStatus(){
 	$.ajax({
 		url:"http://api.openweathermap.org/data/2.5/weather?q=Mumbai,IN&appid=b98cb278e2c7ad14e17df89e7715b89a",
 		success:function(data){
-			$("#weather-temp-min h3").html(data.main.temp_min-273.15);
-			$("#weather-temp-max h3").html(data.main.temp_max-273.15);
+			$("#weather-temp-min").html(data.main.temp_min-273.15);
+			$("#weather-temp-max").html(data.main.temp_max-273.15);
 			chartG.update({series:{data:[data.main.temp-273.15]}});			
 		}
 	});
@@ -66,19 +61,17 @@ function temperatureStatus(){
 
 function initChart(){
 	chartG = Highcharts.chart('weather-temp', {
-
     chart: {
+		height:'250px',
         type: 'gauge',
         plotBackgroundColor: null,
         plotBackgroundImage: null,
         plotBorderWidth: 0,
         plotShadow: false
     },
-
     title: {
-        text: 'Temperature'
+        text: ''
     },
-
     pane: {
         startAngle: -150,
         endAngle: 150,
