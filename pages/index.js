@@ -2,9 +2,20 @@ var chartG = undefined;
 var NEWAPI_KEY = "c0931a52d18146d5a693273877eea231";
 
 $(document).ready(function(){
-	initChart();
-	setInterval(getStatus,3000)
+	//initChart();
+	setInterval(getStatus,3000);
+	startScrolling();
 });
+
+function startScrolling(){
+	var scrollH = 0;
+	var inc = true;
+	setInterval(function(){
+		var heigthScroll = document.getElementById('newsDiv').scrollHeight-$('#newsDiv').height();
+		scrollH = (++scrollH) % heigthScroll;
+		$('#newsDiv').scrollTop(scrollH);
+	},10);
+}
 
 function getStatus(){
 	$.ajax({
@@ -54,7 +65,11 @@ function temperatureStatus(){
 		success:function(data){
 			$("#weather-temp-min").html(data.main.temp_min-273.15);
 			$("#weather-temp-max").html(data.main.temp_max-273.15);
-			chartG.update({series:{data:[data.main.temp-273.15]}});			
+			//chartG.update({series:{data:[data.main.temp-273.15]}});
+			$('#weather-temp').html(data.main.temp-273.15);
+			
+			$("#weather-humidity").html(data.main.humidity);
+			$("#weather-wind").html((data.wind.speed*3.6).toFixed(2));
 		}
 	});
 }

@@ -1,6 +1,7 @@
 'use strict';
 module.exports = function(app) {
 	let data = {"weather":false,"news":false};
+
 	app.route("/weather/:status").get((req, res)=>{
 		data.weather = parseBool(req.params.status);		
 		res.end(getData());

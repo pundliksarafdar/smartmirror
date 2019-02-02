@@ -6,6 +6,34 @@
 		background:black;
 		color:white;
 	}
+	
+	.marquee {
+    top: 6em;
+    position: relative;
+    box-sizing: border-box;
+    animation: marquee 15s linear infinite;
+}
+
+.marquee:hover {
+    animation-play-state: paused;
+}
+
+/* Make it move! */
+@keyframes marquee {
+    0%   { top:   8em }
+    100% { top: -100em }
+}
+
+}
+#newsDiv::-webkit-scrollbar {
+    width: 0px;  /* remove scrollbar space */
+    background: transparent;  /* optional: just make scrollbar invisible */
+}
+/* optional: show position indicator in red */
+#newsDiv::-webkit-scrollbar-thumb {
+    background: #FF0000;
+}
+
 </style>
 	<script src="jquery-3.3.1.min.js"></script>
 	<script src="index.js">	</script>
@@ -14,22 +42,31 @@
 </head>
 <body>
 	<H2>Welcome to smart mirror</H2>
-	<div id="weatherDiv"><h3>Temperature</h3>
-		<div id="weather-temp" style="width:25rem"></div>	
+	<div>
+	<div id="weatherDiv" style="float:left;">
+	<h3>Temperature</h3>
+		<div style="width: 18rem;">
+			<h2><span id="weather-temp"></span>&#8451;</h2>
+		</div>	
 		<div style="width: 18rem;">	
-			<div style="width:50%;float:left;text-align: center;">Min : <h3 id="weather-temp-min">17</h3></div>
-			<div style="width:50%;float:left;text-align: center;">Max : <h3 id="weather-temp-max">18</h3></div>
+			<div style="width:50%;float:left;text-align: center;">Min : <h3 id="weather-temp-min">Loading...</h3></div>
+			<div style="width:50%;float:left;text-align: center;">Max : <h3 id="weather-temp-max">Loading...</h3></div>
+		</div>
+		<hr/>
+		<div style="width: 18rem">	
+			<div style="width:50%;float:left;text-align: center;">Humidity : <h3 id="weather-humidity">Loading...</h3>%</div>
+			<div style="width:50%;float:left;text-align: center;">Wind : <h3 id="weather-wind">Loading...</h3>Km/h</div>
 		</div>
 	</div>
-	<br/>
-	<div id="newsDiv" style="width:18rem">
+	
+	<div id="newsDiv" style="float:right;height: 88vh;overflow-y: scroll;" >
 		<h3>News</h3>
 		<h5>Powered by NewsAPI.org</h5>
 		<div id="news-feed"></div>		
 	</div>
+	</div>
 	
-	
-		<div class="card" style="width:25rem;margin:10px;display:none" id="news-feed-tmpl" style="display:none;">
+		<div style="width:25rem;margin:10px;display:none" id="news-feed-tmpl" style="display:none;">
 		  <div class="card-body">
 			<h6 class="card-subtitle mb-2 text-muted" id="headline">Card subtitle</h6>
 		</div>
