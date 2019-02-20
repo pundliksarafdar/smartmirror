@@ -63,10 +63,10 @@ function temperatureStatus(){
 	$.ajax({
 		url:"http://api.openweathermap.org/data/2.5/weather?q=Mumbai,IN&appid=b98cb278e2c7ad14e17df89e7715b89a",
 		success:function(data){
-			$("#weather-temp-min").html(data.main.temp_min-273.15);
-			$("#weather-temp-max").html(data.main.temp_max-273.15);
+			$("#weather-temp-min").html((data.main.temp_min-273.15).toFixed(2));
+			$("#weather-temp-max").html((data.main.temp_max-273.15).toFixed(2));
 			//chartG.update({series:{data:[data.main.temp-273.15]}});
-			$('#weather-temp').html(data.main.temp-273.15);
+			$('#weather-temp').html((data.main.temp-273.15).toFixed(2));
 			
 			$("#weather-humidity").html(data.main.humidity);
 			$("#weather-wind").html((data.wind.speed*3.6).toFixed(2));
