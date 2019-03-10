@@ -4,9 +4,15 @@ var NEWAPI_KEY = "c0931a52d18146d5a693273877eea231";
 $(document).ready(function(){
 	//initChart();
 	setInterval(getStatus,3000);
-	startScrolling();
+    startScrolling();
+    showDate();
 });
 
+function showDate(){
+    setInterval(function(){
+        $("#date").text(new Date().toDateString()+" "+new Date().toLocaleTimeString());
+    },1000);
+}
 function startScrolling(){
 	var scrollH = 0;
 	var inc = true;
