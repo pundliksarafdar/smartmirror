@@ -4,11 +4,11 @@ var NEWAPI_KEY = "c0931a52d18146d5a693273877eea231";
 $(document).ready(function(){
 	//initChart();
 	setInterval(getStatus,3000);
-    startScrolling();
-    showDate();
+    //startScrolling();
+    runDate();
 });
 
-function showDate(){
+function runDate(){
     setInterval(function(){
         $("#date").text(new Date().toDateString()+" "+new Date().toLocaleTimeString());
     },1000);
@@ -29,9 +29,18 @@ function getStatus(){
 		success:function(data){
 			data = JSON.parse(data);
 			data.weather == true?temperatureStatus():hideTemperature();
-			data.news == true?showNews():hideNews();
+            data.news == true?showNews():hideNews();
+            data.date == true?showDate():hideDate();
 		}
 	});
+}
+
+function showDate(){
+    $("#date").show();
+}
+
+function hideDate(){
+    $("#date").hide();
 }
 
 function hideTemperature(){
@@ -54,7 +63,8 @@ function showNews(){
 }
 
 function loadNews(news){
-	$.each(news.articles,function(idx,newsD){
+    var subArticle = news.articles.slice(0,5);
+	$.each(subArticle,function(idx,newsD){
 		var $newsTmpl = $("#news-feed-tmpl").clone();
 		$newsTmpl.css({"display":"block"});
 		$newsTmpl.find("#headline").text(newsD.title);
