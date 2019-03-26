@@ -1,5 +1,6 @@
 var chartG = undefined;
 var NEWAPI_KEY = "c0931a52d18146d5a693273877eea231";
+var speechStatus = {};
 
 $(document).ready(function(){
 	//initChart();
@@ -23,6 +24,48 @@ function startScrolling(){
 	},10);
 }
 
+function getData(data){
+        var speechData = ["placementDepartment",
+		"examCell",
+		"directorOffice",
+		"fifthBlock",
+		"serverRoom",
+		"auditorium",
+		"canteen",
+		"officeTimming",
+		"readingHall",
+		"bookIssue",
+        "vPrint"];
+
+        var speech = 
+            {"placementDepartment":"M block 1st floor",
+            "examCell":"B block ground floor",
+            "directorOffice":"7th floor",
+            "fifthBlock":"behind 4th block",
+            "serverRoom":"basement in front of lab 14",
+            "auditorium":"behind m block",
+            "canteen":"m block ground floor",
+            "officeTimming":"9 a.m. to 5 p.m.",
+            "readingHall":"C block 2nd floor",
+            "bookIssue":"c block 3rd floor above reading hall",
+            "vPrint":"e block 2nd floor"}
+        
+        speechData.forEach(function(key){
+            if(data[key]==true) {
+                var msg = new SpeechSynthesisUtterance(speech[key]);
+                window.speechSynthesis.speak(msg);
+                myFunction(speech[key]);
+            }
+        });
+}
+
+function myFunction(text) {
+    $("#snackbar").text(text).addClass("show");
+    setTimeout(function(){ 
+        $("#snackbar").removeClass("show");
+     }, 6000);
+  }
+
 function getStatus(){
 	$.ajax({
 		url:"/status",
@@ -31,6 +74,11 @@ function getStatus(){
 			data.weather == true?temperatureStatus():hideTemperature();
             data.news == true?showNews():hideNews();
             data.date == true?showDate():hideDate();
+            getData(data);
+            $.ajax({
+                url:"/reset",
+                success:function(data){}
+            });
 		}
 	});
 }
